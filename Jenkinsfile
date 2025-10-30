@@ -31,11 +31,13 @@ pipeline {
 
         stage('Deploy to Minikube') {
             steps {
-                bat '''
-                minikube image load mlops-app:latest
-                kubectl apply -f kubernetes/deployment.yaml
-                kubectl apply -f kubernetes/service.yaml
-                '''
+                withEnv(['KUBECONFIG=C:\\Users\\satwi\\.kube\\config']) {
+                    bat '''
+                    minikube image load mlops-app:latest
+                    kubectl apply -f kubernetes/deployment.yaml
+                    kubectl apply -f kubernetes/service.yaml
+                    '''
+                }
             }
         }
     }
